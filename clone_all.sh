@@ -14,9 +14,33 @@ clone_repo() {
     fi
 }
 
+
+
+
 #!/bin/bash
 
-# Get user input for Clang choice
+# Get user input for Tree and vendor choice
+echo "Want to remove old tree and vendor:"
+echo "1. yes"
+echo "2. no"
+
+read -p "Enter your choice (1/2): " tree_remove_choice
+
+case $tree_remove_choice in
+     1)   
+        echo "Removing Tree and vendor "
+        rm -rf device/xiaomi/alioth && rm -rf device/xiaomi/sm8250-common && rm -rf vendor/xiaomi/alioth && rm -rf vendor/xiaomi/sm8250-common
+        
+        echo " Tree remove complete."
+        ;;
+     2)
+        echo "Invalid choice. Exiting..."
+        exit 1
+        ;;
+esac
+
+
+# Get user input for Tree and vendor choice
 echo "Want to clone tree and vendor:"
 echo "1. yes"
 echo "2. no"
@@ -24,31 +48,34 @@ echo "2. no"
 read -p "Enter your choice (1/2): " tree_choice
 
 case $tree_choice in
-1)
-    # Clone device tree for alioth
-    echo "Cloning device_xiaomi_alioth..."
-    git clone https://github.com/Ghosuto/device_xiaomi_alioth.git device/xiaomi/alioth
+    1)
+        # Clone device tree for alioth
+        echo "Cloning device_xiaomi_alioth..."
+        git clone https://github.com/Ghosuto/device_xiaomi_alioth.git device/xiaomi/alioth
 
-    # Clone device_common repository
-    echo "Cloning device_xiaomi_sm8250-common..."
-    git clone https://github.com/Ghosuto/device_xiaomi_sm8250-common.git device/xiaomi/sm8250-common
+        # Clone device_common repository
+        echo "Cloning device_xiaomi_sm8250-common..."
+        git clone https://github.com/Ghosuto/device_xiaomi_sm8250-common.git device/xiaomi/sm8250-common
 
-    # Clone device_vendor repository
-    echo "Cloning android_vendor_xiaomi_sm8250-common..."
-    git clone https://github.com/Ghosuto/android_vendor_xiaomi_alioth.git vendor/xiaomi/alioth
+        # Clone device_vendor repository
+        echo "Cloning android_vendor_xiaomi_sm8250-common..."
+        git clone https://github.com/Ghosuto/android_vendor_xiaomi_alioth.git vendor/xiaomi/alioth
 
-    # Clone device_common_vendor repository
-    echo "Cloning android_vendor_xiaomi_alioth..."
-    git clone https://github.com/Ghosuto/android_vendor_xiaomi_sm8250-common.git vendor/xiaomi/sm8250-common
+        # Clone device_common_vendor repository
+        echo "Cloning android_vendor_xiaomi_alioth..."
+        git clone https://github.com/Ghosuto/android_vendor_xiaomi_sm8250-common.git vendor/xiaomi/sm8250-common
 
-    echo " Tree Cloning complete."
-    ;;
-
-2)
-   echo "Invalid choice. Exiting..."
+        echo " Tree Cloning complete."
+        ;;
+    2)
+        echo "Invalid choice. Exiting..."
         exit 1
         ;;
+        
+             
 esac
+
+
 
 
 #!/bin/bash
@@ -92,9 +119,29 @@ esac
 
 echo "Clang Cloning complete."
 
+
+
+
+
 #!/bin/bash
 
 # Get user input for kernel choice
+
+kernel_dir="kernel/xiaomi/alioth"
+
+if [ -d "$kernel_dir" ]; then
+    read -p "The kernel directory already exists. Do you want to remove it? (Y/N): " response
+    if [ "${response,,}" = "y" ]; then
+        rm -rf "$kernel_dir"
+        echo "kernel directory removed."
+    else
+        echo "remove aborted."
+        exit 1
+    fi
+else
+    echo kernel directory does not exist."
+fi
+
 echo "Please select which kernel repository to clone:"
 echo "1. N0 kernel"
 echo "2. Immensity kernel"
@@ -143,47 +190,56 @@ echo " Kernel Cloning complete."
 
 #!/bin/bash
 
-# Clone hardware/xiaomi repository
-echo "Cloning hardware/xiaomi..."
-rm -rf hardware/xiaomi
-git clone https://github.com/Ghosuto/hardware_xiaomi.git -b aosp-13 hardware/xiaomi
+# Get user input for hals choice
+echo "Want to remove stock hals and use custom hals:"
+echo "1. yes"
+echo "2. no"
 
-# Clone hardware/qcom-caf/sm8250/display repository
-echo "Cloning hardware/qcom-caf/sm8250/display..."
-rm -rf hardware/qcom-caf/sm8250/display
-git clone https://github.com/Ghosuto/hardware_qcom-caf_sm8250_display.git -b aosp-13 hardware/qcom-caf/sm8250/display
+read -p "Enter your choice (1/2): " clone_hals
 
-# Clone hardware/qcom-caf/sm8250/media repository
-echo "Cloning hardware/qcom-caf/sm8250/media..."
-rm -rf hardware/qcom-caf/sm8250/media
-git clone https://github.com/Ghosuto/hardware_qcom-caf_sm8250_media.git -b aosp-13 hardware/qcom-caf/sm8250/media
+case $clone_hals in
+     1)
+        echo "Cloning hardware/xiaomi..."
+        rm -rf hardware/xiaomi
+        git clone https://github.com/Ghosuto/hardware_xiaomi.git -b aosp-13 hardware/xiaomi
 
-# Clone hardware/qcom-caf/sm8250/audio repository
-echo "Cloning hardware/qcom-caf/sm8250/audio..."
-rm -rf hardware/qcom-caf/sm8250/audio
-git clone https://github.com/Ghosuto/hardware_qcom-caf_sm8250_audio.git -b aosp-13 hardware/qcom-caf/sm8250/audio
+        echo "Cloning hardware/qcom-caf/sm8250/display..."
+        rm -rf hardware/qcom-caf/sm8250/display
+        git clone https://github.com/Ghosuto/hardware_qcom-caf_sm8250_display.git -b aosp-13 hardware/qcom-caf/sm8250/display
 
-# Clone vendor/qcom/opensource/power repository
-echo "Cloning vendor/qcom/opensource/power..."
-rm -rf vendor/qcom/opensource/power
-git clone https://github.com/Ghosuto/vendor_qcom_opensource_power.git vendor/qcom/opensource/power
+        echo "Cloning hardware/qcom-caf/sm8250/media..."
+        rm -rf hardware/qcom-caf/sm8250/media
+        git clone https://github.com/Ghosuto/hardware_qcom-caf_sm8250_media.git -b aosp-13 hardware/qcom-caf/sm8250/media
 
-# Clone vendor/qcom/opensource/interfaces repository
-echo "Cloning vendor/qcom/opensource/interfaces..."
-rm -rf vendor/qcom/opensource/interfaces
-git clone https://github.com/Ghosuto/vendor_qcom_opensource_interfaces.git -b aosp-13 vendor/qcom/opensource/interfaces
+        echo "Cloning hardware/qcom-caf/sm8250/audio..."
+        rm -rf hardware/qcom-caf/sm8250/audio
+        git clone https://github.com/Ghosuto/hardware_qcom-caf_sm8250_audio.git -b aosp-13 hardware/qcom-caf/sm8250/audio
 
-# Clone hardware/qcom-caf/bootctrl repository
-echo "Cloning hardware/qcom-caf/bootctrl..."
-rm -rf hardware/qcom-caf/bootctrl
-git clone https://github.com/drkphnx/hardware_qcom-caf_bootctrl.git -b aosp-13 hardware/qcom-caf/bootctrl
+        echo "Cloning vendor/qcom/opensource/power..."
+        rm -rf vendor/qcom/opensource/power
+        git clone https://github.com/Ghosuto/vendor_qcom_opensource_power.git vendor/qcom/opensource/power
 
-# Clone external/ant-wireless/antradio-library repository
-echo "Cloning external/ant-wireless/antradio-library..."
-rm -rf external/ant-wireless/antradio-library
-git clone https://github.com/drkphnx/external_ant-wireless_antradio-library -b snowcone external/ant-wireless/antradio-library
+        echo "Cloning vendor/qcom/opensource/interfaces..."
+        rm -rf vendor/qcom/opensource/interfaces
+        git clone https://github.com/Ghosuto/vendor_qcom_opensource_interfaces.git -b aosp-13 vendor/qcom/opensource/interfaces
 
-echo " Hals Cloning complete."
+        echo "Cloning hardware/qcom-caf/bootctrl..."
+        rm -rf hardware/qcom-caf/bootctrl
+        git clone https://github.com/drkphnx/hardware_qcom-caf_bootctrl.git -b aosp-13 hardware/qcom-caf/bootctrl
+
+        echo "Cloning external/ant-wireless/antradio-library..."
+        rm -rf external/ant-wireless/antradio-library
+        git clone https://github.com/drkphnx/external_ant-wireless_antradio-library -b snowcone external/ant-wireless/antradio-library
+
+        echo " Hals Cloning complete."
+        ;;
+
+      2)
+        echo "Using stock hals..."
+        exit 1
+        ;;
+
+
 
 #!/bin/bash
 
@@ -208,6 +264,8 @@ if [ "${LEICA}" = "yes" ]; then
 elif [ "${LEICA}" = "no" ]; then
     echo "Skipping MIUI Camera"
 fi
+
+
 
 
 # Prompt for GHOSTICON input
