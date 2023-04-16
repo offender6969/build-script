@@ -35,7 +35,6 @@ case $tree_remove_choice in
         ;;
      2)
         echo "Invalid choice. Exiting..."
-        exit 1
         ;;
 esac
 
@@ -69,7 +68,6 @@ case $tree_choice in
         ;;
     2)
         echo "Invalid choice. Exiting..."
-        exit 1
         ;;
         
              
@@ -113,7 +111,6 @@ case $clang_choice in
         ;;
     *)
         echo "Invalid choice. Exiting..."
-        exit 1
         ;;
 esac
 
@@ -136,7 +133,6 @@ if [ -d "$kernel_dir" ]; then
         echo "kernel directory removed."
     else
         echo "remove aborted."
-        exit 1
     fi
 else
     echo kernel directory does not exist."
@@ -179,7 +175,6 @@ case $kernel_choice in
         ;;
     *)
         echo "Invalid choice. Exiting..."
-        exit 1
         ;;
 esac
 
@@ -236,7 +231,6 @@ case $clone_hals in
 
       2)
         echo "Using stock hals..."
-        exit 1
         ;;
 
 
