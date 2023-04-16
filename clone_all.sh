@@ -34,7 +34,7 @@ case $tree_remove_choice in
         echo " Tree remove complete."
         ;;
      2)
-        echo "Invalid choice. Exiting..."
+        echo "Clone yout tree..."
         ;;
 esac
 
@@ -67,7 +67,7 @@ case $tree_choice in
         echo " Tree Cloning complete."
         ;;
     2)
-        echo "Invalid choice. Exiting..."
+        echo "Skiping..."
         ;;
         
              
@@ -110,7 +110,7 @@ case $clang_choice in
         git clone --depth=1 https://gitlab.com/GhosutoX/aosp-clang-17.0.0.git prebuilts/clang/host/linux-x86/clang-aosp
         ;;
     *)
-        echo "Invalid choice. Exiting..."
+        echo "skiping..."
         ;;
 esac
 
@@ -174,7 +174,7 @@ case $kernel_choice in
         git clone https://github.com/Ghosuto/kernel_xiaomi_sm8250.git -b staging kernel/xiaomi/alioth
         ;;
     *)
-        echo "Invalid choice. Exiting..."
+        echo "skiping..."
         ;;
 esac
 
