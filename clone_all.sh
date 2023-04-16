@@ -309,7 +309,7 @@ echo "entered miuicamera dir"
 
 
 # prompt user for confirmation
-read -p "Are you sure you want to revert this commit? [y/n] " choice
+read -p "Are you sure you want to revert 48mp commit? [y/n] " choice
 
 if [[ $choice == "y" ]]; then
   # revert the commit
