@@ -15,8 +15,6 @@ clone_repo() {
 }
 
 
-
-
 #!/bin/bash
 
 # Get user input for Tree and vendor choice
@@ -34,7 +32,7 @@ case $tree_remove_choice in
         echo " Tree remove complete."
         ;;
      2)
-        echo "Clone yout tree..."
+        echo "Skiping..."
         ;;
 esac
 
@@ -67,7 +65,7 @@ case $tree_choice in
         echo " Tree Cloning complete."
         ;;
     2)
-        echo "Skiping..."
+        echo "skiping..."
         ;;
         
              
@@ -85,8 +83,9 @@ echo "2. Snapdragon Clang"
 echo "3. Zyc Clang"
 echo "4. Weebx Clang"
 echo "5. AOSP Clang"
+echo "6. skip"
 
-read -p "Enter your choice (1/2/3/4/5): " clang_choice
+read -p "Enter your choice (1/2/3/4/5/6): " clang_choice
 
 case $clang_choice in
     1)
@@ -122,21 +121,26 @@ echo "Clang Cloning complete."
 
 #!/bin/bash
 
+echo "Want to remove old kernel:"
+echo "1. yes"
+echo "2. no"
+
+read -p "Enter your choice (1/2): " kernel_remove_choice
+
+case $kernel_remove_choice in
+     1)   
+        echo "Removing kernel "
+        rm -rf kernel/xiaomi/alioth
+        
+        echo " kernel remove complete."
+        ;;
+     2)
+        echo "Skiping..."
+        ;;
+esac
+
+
 # Get user input for kernel choice
-
-kernel_dir="kernel/xiaomi/alioth"
-
-if [ -d "$kernel_dir" ]; then
-    read -p "The kernel directory already exists. Do you want to remove it? (Y/N): " response
-    if [ "${response,,}" = "y" ]; then
-        rm -rf "$kernel_dir"
-        echo "kernel directory removed."
-    else
-        echo "remove aborted."
-    fi
-else
-    echo kernel directory does not exist."
-fi
 
 echo "Please select which kernel repository to clone:"
 echo "1. N0 kernel"
@@ -174,7 +178,7 @@ case $kernel_choice in
         git clone https://github.com/Ghosuto/kernel_xiaomi_sm8250.git -b staging kernel/xiaomi/alioth
         ;;
     *)
-        echo "skiping..."
+        echo "Skiping..."
         ;;
 esac
 
@@ -232,43 +236,86 @@ case $clone_hals in
       2)
         echo "Using stock hals..."
         ;;
-
+esac
 
 
 #!/bin/bash
 
 # Prompt for GCAM input
-read -p "Do you want to clone GCam? (yes/no): " GCAM
+echo "Want to clone gcam:"
+echo "1. yes"
+echo "2. no"
 
-# Cloning GCam if GCAM variable is set to "yes"
-if [ "${GCAM}" = "yes" ]; then
-    echo "Cloning GCam"
-    git clone https://gitlab.com/Alioth-Project/vendor_GcamBSG.git -b twelve vendor/GcamBSG
-elif [ "${GCAM}" = "no" ]; then
-    echo "Skipping GCam"
-fi
+read -p "Do you want to clone GCam? (1/2): " GCAM
+
+# Cloning GCam if GCAM variable is set to "1"
+
+case $GCAM in
+     1)
+         echo "Cloning GCam"
+         git clone https://gitlab.com/Alioth-Project/vendor_GcamBSG.git -b twelve vendor/GcamBSG
+         ;;
+     2)
+         echo "Skipping GCam"
+         ;;
+esac
+
 
 # Prompt for LEICA input
-read -p "Do you want to clone MIUI Camera? (yes/no): " LEICA
+echo "Want to clone LEICA:"
+echo "1. yes"
+echo "2. no"
 
-# Cloning MIUI Camera if LEICA variable is set to "yes"
-if [ "${LEICA}" = "yes" ]; then
-    echo "Cloning MIUI Camera"
-    git clone https://gitlab.com/dark.phnx12/android_vendor_xiaomi_alioth-miuicamera.git vendor/xiaomi/alioth-miuicamera
-elif [ "${LEICA}" = "no" ]; then
-    echo "Skipping MIUI Camera"
-fi
+read -p "Do you want to clone GCam? (1/2): " LEICA
 
+# Cloning GCam if GCAM variable is set to "1"
+
+case $LEICA in
+     1)
+         echo "Cloning MIUI Camera"
+         git clone https://gitlab.com/dark.phnx12/android_vendor_xiaomi_alioth-miuicamera.git vendor/xiaomi/alioth-miuicamera
+         ;;
+
+     2)
+         echo "Skipping GCam"
+         ;;
+esac
 
 
 
 # Prompt for GHOSTICON input
-read -p "Do you want to clone GHOSTICON? (yes/no): " GHOSTICON
+echo "Want to clone GHOSTICON:"
+echo "1. yes"
+echo "2. no"
 
-# Cloning GHOSTICON if GHOSTICON variable is set to "yes"
-if [ "${GHOSTICON}" = "yes" ]; then
-    echo "Cloning GCam"
-    git clone https://github.com/Ghosuto/vendor_ghosticon.git vendor/ghosticon
-elif [ "${GHOSTICON}" = "no" ]; then
-    echo "Skipping GHOSTICON"
+read -p "Do you want to clone GHOSTICON? (1/2): " GHOSTICON
+
+# Cloning GCam if GCAM variable is set to "1"
+
+case $GHOSTICON in
+     1)
+         echo "Cloning GHOSTICON"
+         git clone https://github.com/Ghosuto/vendor_ghosticon.git vendor/ghosticon
+         ;;
+
+     2)
+         echo "Skipping GCam"
+         ;;
+esac
+
+
+cd vendor/xiaomi/alioth-miuicamera
+echo "entered miuicamera dir"
+
+
+# prompt user for confirmation
+read -p "Are you sure you want to revert this commit? [y/n] " choice
+
+if [[ $choice == "y" ]]; then
+  # revert the commit
+  git revert 8e0541d4114508731c3c2a1eda9b080284b0a182
+
+  echo "Commit reverted successfully."
+else
+  echo "Commit was not reverted."
 fi
