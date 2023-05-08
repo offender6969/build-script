@@ -106,7 +106,7 @@ case $clang_choice in
         ;;
     5)
         echo "Cloning AOSP Clang..."
-        git clone --depth=1 https://gitlab.com/GhosutoX/aosp-clang-17.0.0.git prebuilts/clang/host/linux-x86/clang-aosp
+        git clone https://gitlab.com/GhosutoX/aosp-clang-17.git -b 17 prebuilts/clang/host/linux-x86/clang-aosp
         ;;
     *)
         echo "skiping..."
