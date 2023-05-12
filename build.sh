@@ -18,7 +18,7 @@
  # limitations under the License.
  #
  #change which one you want to use (default aosp)
- CLANG=aosp
+ CLANG=pre
 
 #Clone AnyKernel
         if [ -d AnyKernel3 ]; then
@@ -35,9 +35,9 @@ echo "cloning clang"
         elif [ "${CLANG}" = "sd" ]; then
         echo "sd"
 			git clone https://gitlab.com/VoidUI/snapdragon-clang.git clang
-		elif [ "${CLANG}" = "zyc" ]; then
-		echo "zyc"
-			git clone https://gitlab.com/GhosutoX/zyc-clang16.git clang
+		elif [ "${CLANG}" = "pre" ]; then
+		echo "pre"
+			git clone --depth=1 https://gitlab.com/jjpprrrr/prelude-clang.git clang
 		elif [ "${CLANG}" = "weebx" ]; then
 		echo "weebx"
 		    git clone https://gitlab.com/GhosutoX/weebx-clang16.git clang
@@ -224,7 +224,7 @@ build_kernel() {
 
   MAKE+=(
 	  CROSS_COMPILE=aarch64-linux-gnu- \
-		CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
+		CROSS_COMPILE_COMPAT=arm-linux-gnueabi- \
 		CC=${BUILDTOOLS_PREFIX}/bin/clang \
 		AR=${BUILDTOOLS_PREFIX}/bin/llvm-ar \
 		AS=${BUILDTOOLS_PREFIX}/bin/llvm-as \
