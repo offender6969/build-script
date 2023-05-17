@@ -83,7 +83,8 @@ echo "2. Snapdragon Clang"
 echo "3. Zyc Clang"
 echo "4. Weebx Clang"
 echo "5. AOSP Clang"
-echo "6. skip"
+echo "6. AOSP Clang"
+echo "7. skip"
 
 read -p "Enter your choice (1/2/3/4/5/6): " clang_choice
 
@@ -107,6 +108,10 @@ case $clang_choice in
     5)
         echo "Cloning AOSP Clang..."
         git clone https://gitlab.com/GhosutoX/aosp-clang-17.git -b 17 prebuilts/clang/host/linux-x86/clang-aosp
+        ;;
+    6)
+        echo "Cloning AOSP Clang..."
+        git clone https://gitlab.com/jjpprrrr/prelude-clang.git prebuilts/clang/host/linux-x86/clang-pre
         ;;
     *)
         echo "skiping..."
