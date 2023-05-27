@@ -160,7 +160,7 @@ read -p "Enter your choice (1/2/3/4/5/6): " kernel_choice
 case $kernel_choice in
     1)
         echo "Cloning N0 kernel..."
-        git clone --depth=1 https://github.com/EmanuelCN/kernel_xiaomi_sm8250 -b staging kernel/xiaomi/alioth
+        git clone https://github.com/EmanuelCN/kernel_xiaomi_sm8250 -b staging kernel/xiaomi/alioth
         ;;
     2)
         echo "Cloning Immensity kernel..."
