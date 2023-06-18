@@ -48,19 +48,19 @@ case $tree_choice in
     1)
         # Clone device tree for alioth
         echo "Cloning device_xiaomi_alioth..."
-        git clone https://github.com/Ghosuto/device_xiaomi_alioth.git device/xiaomi/alioth
+        git clone git@github.com:offender6969/android_device-xiaomi-alioth.git device/xiaomi/alioth
 
         # Clone device_common repository
         echo "Cloning device_xiaomi_sm8250-common..."
-        git clone https://github.com/Ghosuto/device_xiaomi_sm8250-common.git device/xiaomi/sm8250-common
+        git clone git@github.com:offender6969/devicce_xiaomi_sm8250-common.gitdevice/xiaomi/sm8250-common
 
         # Clone device_vendor repository
-        echo "Cloning android_vendor_xiaomi_sm8250-common..."
-        git clone https://github.com/Ghosuto/android_vendor_xiaomi_alioth.git vendor/xiaomi/alioth
+        echo "Cloning android_vendor_xiaomi_alioth..."
+        git clone git@github.com:offender6969/android_vendor_xiaomi_alioth.git vendor/xiaomi/alioth
 
         # Clone device_common_vendor repository
-        echo "Cloning android_vendor_xiaomi_alioth..."
-        git clone https://github.com/Ghosuto/android_vendor_xiaomi_sm8250-common.git vendor/xiaomi/sm8250-common
+        echo "Cloning android_vendor_xiaomi_common..."
+        git clone git@github.com:offender6969/android_vendor_xiaomi_sm8250-common.git vendor/xiaomi/sm8250-common
 
         echo " Tree Cloning complete."
         ;;
