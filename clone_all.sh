@@ -52,7 +52,7 @@ case $tree_choice in
 
         # Clone device_common repository
         echo "Cloning device_xiaomi_sm8250-common..."
-        git clone git@github.com:offender6969/devicce_xiaomi_sm8250-common.gitdevice/xiaomi/sm8250-common
+        git clone git@github.com:offender6969/devicce_xiaomi_sm8250-common.git device/xiaomi/sm8250-common
 
         # Clone device_vendor repository
         echo "Cloning android_vendor_xiaomi_alioth..."
